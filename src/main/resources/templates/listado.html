@@ -41,7 +41,9 @@
     				<td th:text="${m.nomProducto}"></td>
     				<td th:text="${m.precioPro}"></td>
     				<td th:text="${m.idMarca.descripcion}"></td>
-    				<th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{m.foto}}" style="width:70px; height:70px;" ></th>
+    				<th scope="row"><img alt="" th:src="'data:image/jpeg;base64,' + ${m.foto}"  style="width:70px; height:70px;" ></th>
+    				<!--<th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{m.foto}}" style="width:70px; height:70px;" ></th>
+    				-->
     				<td th:text="${m.estado}"></td>
     				<td>
 						<button class="btn btn-warning editarbtn"> Actualizar</button>

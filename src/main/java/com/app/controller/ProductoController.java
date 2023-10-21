@@ -32,7 +32,7 @@ public class ProductoController {
 		model.addAttribute("Producto", new Producto());
 		model.addAttribute("lstProductos", produc.findAll());
 		model.addAttribute("lstMarca", marca.findAll());
-		return "listadoProducto";
+		return "listado";
 	}
 
 	@PostMapping("/grabarProducto")

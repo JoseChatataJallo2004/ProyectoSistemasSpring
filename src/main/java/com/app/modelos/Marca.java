@@ -46,7 +46,7 @@ public class Marca {
 		this.estado = estado;
 	}
 
- //Prueba 159
+ //Prueba 159 jose
 	
 	
 	

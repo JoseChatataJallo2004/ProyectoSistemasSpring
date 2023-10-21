@@ -27,12 +27,12 @@ public class ProductoController {
 	@Autowired
 	private IMarcaRepository marca;
 
-	@GetMapping("/listar")
+	@GetMapping("/listarProducto")
 	public String listadoProducto(Model model) {
 		model.addAttribute("Producto", new Producto());
 		model.addAttribute("lstProductos", produc.findAll());
 		model.addAttribute("lstMarca", marca.findAll());
-		return "listado";
+		return "ListadoProducto";
 	}
 
 	@PostMapping("/grabarProducto")
@@ -49,20 +49,20 @@ public class ProductoController {
 			e.printStackTrace();
 		}
 		produc.save(mar);
-		return "redirect:/listar";
+		return "redirect:/listarProducto";
 	}
 
 	@PostMapping("/editarProducto")
 	public String editar(@ModelAttribute Producto mar) {	
 			produc.save(mar);	
-		return "redirect:/listar";
+		return "redirect:/listarProducto";
 	}
 	
 	@PostMapping("/eliminarProducto")
 	public String eliminar(@ModelAttribute Producto mar) {		
 		Producto marc =produc.findByidproducto(mar.getIdproducto());	
 			produc.delete(marc);	
-		return "redirect:/listar";
+		return "redirect:/listarProducto";
 	}
 	
 	

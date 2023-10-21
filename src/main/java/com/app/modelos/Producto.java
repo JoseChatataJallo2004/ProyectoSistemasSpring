@@ -38,7 +38,7 @@ public class Producto {
 	private String foto;
 
 	@Column(name="estado")
-	private String estado;
+	private int estado;
 	
 	public int getIdproducto() {
 		return idproducto;
@@ -82,13 +82,14 @@ public class Producto {
 		this.foto = foto;
 	}
 
-	public String getEstado() {
+	public int getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
 
 	
 	

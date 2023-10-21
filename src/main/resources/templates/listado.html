@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <!--PARA EL QUERY DE LA TABLA -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+  
+  </head>
+  <body>
+	  <br/>
+	   <br/>
+	    <br/>
+    <div class="container">
+    	<h4>Listado de Productos</h4>
+    	
+    	<button type="button" class="btn btn-primary  mb-2" id="agregarbtn" >Agregar Producto</button>
+		
+    	<table class="table table-hover" id="myTable">
+    		<thead>
+    			<tr>
+    				<th scope="col">Código</th>
+    				<th scope="col">Nombre</th>
+    				<th scope="col">Precio</th>
+    				<th scope="col">Marca</th>
+    				<th scope="col">Foto</th>
+    				<th scope="col">Estado</th>
+    				<th></th>
+    				<th></th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr th:each="m : ${lstProductos}">
+    				<td th:text="${m.idproducto}"></td>
+    				<td th:text="${m.nomProducto}"></td>
+    				<td th:text="${m.precioPro}"></td>
+    				<td th:text="${m.idMarca.descripcion}"></td>
+    				<th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{m.foto}}" style="width:70px; height:70px;" ></th>
+    				<td th:text="${m.estado}"></td>
+    				<td>
+						<button class="btn btn-warning editarbtn"> Actualizar</button>
+    				</td>
+    				<td>
+						<button type="button" class="btn btn-danger deletebtn"> Eliminar</button>
+    				</td>
+    			</tr>
+    		</tbody>
+    	</table>    
+    </div>
+    
+    <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<form th:action="@{/grabarProducto}" th:object="${Producto}" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="hidden" class="form-control" id="codigo" th:field="*{idproducto}">
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre de Producto</label>
+            <input type="text" class="form-control" id="nombre" th:field="*{nomProducto}" >
+          </div>  
+          <div class="form-group">
+            <label for="precio">Precio </label>
+            <input type="text" class="form-control" id="precio" th:field="*{precioPro}" >
+          </div>  
+            <div class="form-group" >
+			<input type="hidden" th:field="*{foto}"/>
+		  <label for="foto" >Foto (Solo Admite Formato JPG)</label>
+           <input type="file" class="form-control" name="image">
+          </div>
+          <div class="form-group">
+					<label for="inputCategoria">Marca</label>
+					<select id="inputCategoria" class="form-control" th:field="*{idMarca}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:each="c : ${lstMarca}" th:value="${c.codigo}" th:text="${c.descripcion}"></option>
+						<!--<option th:value="1" th:text="Pastillas"></option>-->
+					</select>
+				</div>      
+          <div class="form-group">
+					<label for="inputEstado">Estado</label>
+					<select id="inputEstado" class="form-control" th:field="*{estado}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:value="Si" th:text="Si"></option>
+						<option th:value="No" th:text="No"></option>
+					</select>
+				</div>
+          
+		     <div class="modal-footer">
+				 <a href="/listar"  class="btn btn-danger"> Cancelar</a>
+		        <button type="submit" class="btn btn-success" id="guardarMarca">SI, Guardar</button>
+		      </div>
+   
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+     <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	    <form th:action="@{/editarProducto}" th:object="${Producto}"  method="post" enctype="multipart/form-data">
+			<div class="form-group">
+            <input type="hidden" class="form-control" id="codigoeditar" th:field="*{idproducto}" >
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre de Productos</label>
+            <input type="text" class="form-control" id="descripcioneditar" th:field="*{nomProducto}" >
+          </div>         
+            <div class="form-group">
+            <label for="precio">Precio </label>
+            <input type="text" class="form-control" id="precioeditar" th:field="*{precioPro}" >
+          </div>
+              <div class="form-group" >
+			<input type="hidden"th:field="*{foto}"/>
+		  <label for="foto" >Foto </label>
+           <input type="file" class="form-control" name="image" id="imagefile">
+          </div>         
+       
+           <div class="form-group">
+					<label for="inputCategoria">Marca</label>
+					<select id="inputCategoria" class="form-control" th:field="*{idMarca.codigo}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:each="c : ${lstMarca}" th:value="${c.codigo}" th:text="${c.descripcion}"></option>
+						<!--<option th:value="1" th:text="Pastillas"></option>-->
+					</select>
+				</div>  
+          
+               <div class="form-group">
+					<label for="inputEstado">Estado</label>
+					<select id="estadoeditar" class="form-control" name="estado" th:field="*{estado}" >
+						<option value="Si" th:selected="${Producto.estado == 'Si'}">Si</option>
+        				<option value="No" th:selected="${Producto.estado == 'No'}">No</option>
+					</select>
+				</div>
+          
+		     <div class="modal-footer">
+				 <a href="/listar"  class="btn btn-danger"> Cancelar</a>
+		        <button type="submit" class="btn btn-success" id="guardarMarca">SI, Editar</button>
+		      </div>
+		      
+	    </form>
+		      
+          </div>  
+     
+      </div>
+    
+    </div>
+  </div>
+   
+   <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Marca</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<form th:action="@{/eliminarProducto}"  method="post">
+          <div class="form-group">
+            <input type="hidden" class="form-control" name="codigo" id="codigoeliminar" >
+		
+		<span id="descripcionmarca">
+			
+			
+		</span>
+          </div>
+      
+          
+		     <div class="modal-footer">
+				 <a href="/"  class="btn btn-primary"> Cancelar</a>
+		        <button type="submit" class="btn btn-danger" >SI, Eliminar</button>
+		      </div>
+   
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+			<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
+		<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script> 
+    
+   
+	<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+        
+        
+    });
+	</script>
+	
+	<script>
+		$(document).ready(function(){
+			$('#agregarbtn').on('click',function(){
+				$('#modalAgregar').modal('show');
+			})
+		});
+	</script>
+	<script>
+		$(document).ready(function(){
+			$('.deletebtn').on('click',function(){
+				$('#modalEliminar').modal('show');
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function(){
+					return $(this).text();
+				}).get();
+				console.log(data);
+				$('#codigoeliminar').val(data[0]);
+				$('#descripcionmarca').text("¿Está seguro de eliminar la Marca  "+data[1] +  " ? ");
+			})
+		});
+	</script>
+<script>
+		$(document).ready(function(){
+			$('.editarbtn').on('click',function(){
+				$('#modalEditar').modal('show');
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function(){
+					return $(this).text();
+				}).get();
+				console.log(data);
+
+				$('#codigoeditar').val(data[0]);
+				$('#descripcioneditar').val(data[1]);
+				$('#precioeditar').val(data[2]);
+				$('#inputCategoria').val(data[3]);
+				$('#imagefile').attr('src', data[4]);
+				//$('#imagefile').val(data[4]);
+				console.log('Valor de data[2]: ' + data[5]);
+				//$('#estadoeditar').val(data[2]);
+
+			if (data[5] === "Si") {
+			  $('#estadoeditar').val("Si");
+			} else if (data[5] === "No") {
+			  $('#estadoeditar').val("No");
+				}
+
+			});
+		});
+	</script>
+
+	
+	  </body>
+</html>
+
+	

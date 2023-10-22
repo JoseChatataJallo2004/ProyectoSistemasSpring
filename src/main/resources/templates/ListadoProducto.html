@@ -87,7 +87,7 @@
 					<label for="inputCategoria">Marca</label>
 					<select id="inputCategoria" class="form-control" th:field="*{idMarca}">
 						<option th:value="-1" th:text="Seleccione"></option>
-						<option th:each="c : ${lstMarca}" th:value="${c.codigo}" th:text="${c.descripcion}"></option>
+						<option th:each="c : ${lstMarcaporEstado}" th:value="${c.codigo}" th:text="${c.descripcion}"></option>
 						<!--<option th:value="1" th:text="Pastillas"></option>-->
 					</select>
 				</div>      
@@ -143,10 +143,12 @@
        
            <div class="form-group">
 					<label for="inputCategoria">Marca</label>
-					<select id="inputCategoria" class="form-control" th:field="*{idMarca.codigo}">
-						<option th:value="-1" th:text="Seleccione"></option>
-						<option th:each="c : ${lstMarca}" th:value="${c.codigo}" th:text="${c.descripcion}"></option>
-						<!--<option th:value="1" th:text="Pastillas"></option>-->
+					<!--<select id="marcaeditar" class="form-control" th:field="*{idMarca.codigo}" > -->
+					<select id="marcaeditar" class="form-control" th:field="*{idMarca.codigo}" >
+
+						<option th:each="c : ${lstMarcaporEstado}" th:value="${c.codigo}" th:text="${c.descripcion}" ></option>
+
+					
 					</select>
 				</div>  
           
@@ -254,15 +256,13 @@
 				$('#codigoeditar').val(data[0]);
 				$('#descripcioneditar').val(data[1]);
 				$('#precioeditar').val(data[2]);
-				$('#inputCategoria').val(data[3]);
-				$('#imagefile').attr('src', data[4]);
-				//$('#imagefile').val(data[4]);
-				console.log('Valor de data[5]: ' + data[5]);
-				//$('#estadoeditar').val(data[2]);
+				$('#marcaeditar').val(data[3]);
+				
+							
 
-			if (data[5] === "Disponible") {
+			if (data[4] === "Disponible") {
 			  $('#estadoeditar').val("1");
-			} else if (data[5] === "No Disponible") {
+			} else if (data[4] === "No Disponible") {
 			  $('#estadoeditar').val("2");
 				}
 			});

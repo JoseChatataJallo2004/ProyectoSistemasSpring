@@ -31,7 +31,8 @@ public class ProductoController {
 	public String listadoProducto(Model model) {
 		model.addAttribute("Producto", new Producto());
 		model.addAttribute("lstProductos", produc.findAll());
-		model.addAttribute("lstMarca", marca.findAll());
+		model.addAttribute("lstMarcaporEstado",marca.findByEstado(1));
+		//model.addAttribute("lstMarca", marca.findAll());
 		return "ListadoProducto";
 	}
 

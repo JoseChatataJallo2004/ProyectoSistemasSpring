@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.app.modelos.Marca;
@@ -32,12 +33,8 @@ public class TiendaController {
 	}
 	
 	
-	/*@RequestMapping("/detalle/{idproducto}")
-	public String verDetalle(@ModelAttribute Producto producto, Model model) {
-		model.addAttribute("produc",producto);
-		Producto prod = produc.findByidproducto(producto.getIdproducto());
-		return "DetalleProducto";
-	}*/
+
+	
 	
 	@RequestMapping("/detalle/{idproducto}")
 	public String verDetalle(@PathVariable Integer idproducto, Model model) {
@@ -52,5 +49,4 @@ public class TiendaController {
 
 	    return "DetalleProducto";
 	}
-
 }

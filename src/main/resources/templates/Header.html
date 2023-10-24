@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+    <head th:fragment="head">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Tables - SB Admin</title>
+        <link th:href="@{css/styles.css}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
+        
+          <!--PARA EL QUERY DE LA TABLA -->
+  		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+
+	
+		<style>
+		    .codigo-header,
+		    .codigo-data {
+		        display: none;
+		    }
+		</style>
+
+        
+    </head>
+    <body >
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" th:fragment="nav">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-5" href="#">Start Bootstrap</a>
+            <!-- Sidebar Toggle-->
+        </nav>
+        
+        
+        <div th:fragment="todos">
+					
+
+		</div>
+      
+        <script th:src="@{js/scripts.js}"></script>
+        <script th:src="@{js/datatables-simple-demo.js}"></script>
+    </body>
+</html>

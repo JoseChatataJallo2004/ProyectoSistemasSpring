@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.modelos.Marca;
 import com.app.repository.IMarcaRepository;
@@ -24,23 +25,29 @@ public class MarcaController {
 	}
 	
 	@PostMapping("/grabarmarca")
-	public String grabarPag(@ModelAttribute Marca mar) {
-		marca.save(mar);
+	public String grabarPag(@ModelAttribute Marca mar, RedirectAttributes attribute) {
+		if(marca.save(mar) != null) {
+			attribute.addFlashAttribute("success", "Felicidades se  registro con éxito!");
+		}
 		return "redirect:/";
-		//jose
 	}
 	
 	
 	@PostMapping("/editar")
-	public String editar(@ModelAttribute Marca mar) {		
-			marca.save(mar);	
+	public String editar(@ModelAttribute Marca mar, RedirectAttributes attribute) {		
+		if(marca.save(mar) != null) {
+			attribute.addFlashAttribute("usuccess", "Felicidades se  actualizo con éxito!");
+		}
+				
 		return "redirect:/";
 	}
 	
 	@PostMapping("/eliminar")
-	public String eliminar(@ModelAttribute Marca mar) {		
+	public String eliminar(@ModelAttribute Marca mar, RedirectAttributes attribute) {		
 		Marca marc =marca.findByCodigo(mar.getCodigo());	
 			marca.delete(marc);	
+			attribute.addFlashAttribute("dsuccess","Felicidades se  elimino con éxito!");	
+
 		return "redirect:/";
 	}
 	

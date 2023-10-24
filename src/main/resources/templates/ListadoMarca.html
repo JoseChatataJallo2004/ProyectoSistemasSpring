@@ -33,6 +33,21 @@
     	<h4>Listado de Marcas</h4>
     	
     	<button type="button" class="btn btn-primary  mb-2" id="agregarbtn" > Agregar Marca</button>
+    	
+		<div class="alert alert-success alert-dismissible fade show" th:if="${success}!=null" role="alert">
+		  <label th:text="${success}"></label>
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		
+		<div class="alert alert-warning alert-dismissible fade show" th:if="${usuccess}!=null" role="alert">
+		  <label th:text="${usuccess}"></label>
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		
+		<div class="alert alert-danger alert-dismissible fade show" th:if="${dsuccess}!=null" role="alert">
+		  <label th:text="${dsuccess}"></label>
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
 		
     	<table class="table table-hover" id="myTable">
     		<thead>

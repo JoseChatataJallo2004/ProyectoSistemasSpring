@@ -9,11 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.app.modelos.Marca;
 import com.app.modelos.Producto;
 import com.app.repository.IMarcaRepository;
 import com.app.repository.IProductoRepository;
@@ -53,11 +53,13 @@ public class ProductoController {
 		return "redirect:/listarProducto";
 	}
 
-	@PostMapping("/editarProducto")
+	/*@PostMapping("/editarProducto")
 	public String editar(@ModelAttribute Producto mar) {	
 			produc.save(mar);	
 		return "redirect:/listarProducto";
-	}
+	}*/
+	
+	
 	
 	@PostMapping("/eliminarProducto")
 	public String eliminar(@ModelAttribute Producto mar) {		

@@ -61,7 +61,7 @@ public class ProductoController {
 	
 	@PostMapping("/eliminarProducto")
 	public String eliminar(@ModelAttribute Producto mar) {		
-		Producto marc =produc.findByidproducto(mar.getIdproducto());	
+		Producto marc =produc.findByIdproducto(mar.getIdproducto());	
 			produc.delete(marc);	
 		return "redirect:/listarProducto";
 	}

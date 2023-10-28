@@ -125,7 +125,7 @@
       <div class="modal-body">
 	    <form th:action="@{/editarProducto}" th:object="${Producto}"  method="post" enctype="multipart/form-data">
 			<div class="form-group">
-            <input type="hidden" class="form-control" id="codigoeditar" th:field="*{idproducto}" >
+            <input type="hidden" class="form-control" id="codigoeditar" th:field="*{idproducto}">
           </div>
           <div class="form-group">
             <label for="nombre">Nombre de Productos</label>
@@ -141,14 +141,11 @@
            <input type="file" class="form-control" name="image" id="imagefile">
           </div>         
        
-           <div class="form-group">
-					<label for="inputCategoria">Marca</label>
-					<!--<select id="marcaeditar" class="form-control" th:field="*{idMarca.codigo}" > -->
-					<select id="marcaeditar" class="form-control" th:field="*{idMarca.codigo}" >
-
-						<option th:each="c : ${lstMarcaporEstado}" th:value="${c.codigo}" th:text="${c.descripcion}" ></option>
-
-					
+           <div  class="form-group">
+					<label for="inputmarca">Marca</label>
+					<select id="marcaeditar" class="form-control" th:field="*{idMarca}" >
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option  th:each="s: ${lstMarcaporEstado}" th:value="${s.codigo}" th:text="${s.descripcion}" ></option>
 					</select>
 				</div>  
           
@@ -186,7 +183,7 @@
       <div class="modal-body">
 		<form th:action="@{/eliminarProducto}"  method="post">
           <div class="form-group">
-            <input type="hidden" class="form-control" name="codigo" id="codigoeliminar" >
+            <input type="hidden" class="form-control" name="idproducto" id="codigoeliminar" >
 		
 		<span id="descripcionpro">
 			
@@ -256,7 +253,9 @@
 				$('#codigoeditar').val(data[0]);
 				$('#descripcioneditar').val(data[1]);
 				$('#precioeditar').val(data[2]);
-				$('#marcaeditar').val(data[3]);
+			
+	
+    
 				
 							
 

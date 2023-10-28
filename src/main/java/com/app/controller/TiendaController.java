@@ -39,7 +39,7 @@ public class TiendaController {
 	@RequestMapping("/detalle/{idproducto}")
 	public String verDetalle(@PathVariable Integer idproducto, Model model) {
 	    // Obtener el producto desde la base de datos por su ID
-	    Producto producto = produc.findByidproducto(idproducto);
+	    Producto producto = produc.findByIdproducto(idproducto);
 
 	    if (producto != null) {
 	        model.addAttribute("producto", producto); // Usa "producto" en lugar de "produc"

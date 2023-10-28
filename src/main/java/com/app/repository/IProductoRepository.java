@@ -8,7 +8,7 @@ import com.app.modelos.Producto;
 
 public interface IProductoRepository extends JpaRepository<Producto, Integer> {
 
-	Producto findByidproducto(Integer idproducto);
+	Producto findByIdproducto(Integer idproducto);
 	
 	List<Producto> findByEstado(int estado);
 

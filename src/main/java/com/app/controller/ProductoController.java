@@ -53,6 +53,7 @@ public class ProductoController {
 		return "redirect:/listarProducto";
 	}
 
+
 	/*@PostMapping("/editarProducto")
 	public String editar(@ModelAttribute Producto mar) {	
 			produc.save(mar);	
@@ -60,6 +61,13 @@ public class ProductoController {
 	}*/
 	
 	
+
+//	@PostMapping("/editarProducto")
+//	public String editar(@ModelAttribute Producto mar) {	
+//			produc.save(mar);	
+//		return "redirect:/listarProducto";
+//	}
+
 	
 	@PostMapping("/eliminarProducto")
 	public String eliminar(@ModelAttribute Producto mar) {		

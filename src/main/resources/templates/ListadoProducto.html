@@ -32,7 +32,6 @@
     				<th scope="col">Foto</th>
     				<th scope="col">Estado</th>
     				<th></th>
-    				<th></th>
     			</tr>
     		</thead>
     		<tbody>
@@ -45,11 +44,11 @@
     				<!--<th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{m.foto}}" style="width:70px; height:70px;" ></th>
     				-->
     				<td th:text="${m.estado ==1 ? 'Disponible' : 'No Disponible'}"></td>
-    				<td>
-					<!--	<button class="btn btn-warning editarbtn"> Actualizar</button>-->
+    				
 
-    				</td>
+					<!--	<button class="btn btn-warning editarbtn"> Actualizar</button>-->
     				<td>
+
 						<button type="button" class="btn btn-danger deletebtn"> Eliminar</button>
     				</td>
     			</tr>
@@ -114,64 +113,66 @@
 </div>
 
 
-     <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Editar Producto</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-		</button>
-      </div>
-      <div class="modal-body">
-	    <form th:action="@{/editarProducto}" th:object="${Producto}"  method="post" enctype="multipart/form-data">
-			<div class="form-group">
-            <input type="hidden" class="form-control" id="codigoeditar" th:field="*{idproducto}">
-          </div>
-          <div class="form-group">
-            <label for="nombre">Nombre de Productos</label>
-            <input type="text" class="form-control" id="descripcioneditar" th:field="*{nomProducto}" >
-          </div>         
-            <div class="form-group">
-            <label for="precio">Precio </label>
-            <input type="text" class="form-control" id="precioeditar" th:field="*{precioPro}" >
-          </div>
-              <div class="form-group" >
-			<input type="hidden"th:field="*{foto}"/>
-		  <label for="foto" >Foto </label>
-           <input type="file" class="form-control" name="image" id="imagefile">
-          </div>         
-       
-           <div  class="form-group">
-					<label for="inputmarca">Marca</label>
-					<select id="marcaeditar" class="form-control" th:field="*{idMarca}" >
-						<option th:value="-1" th:text="Seleccione"></option>
-						<option  th:each="s: ${lstMarcaporEstado}" th:value="${s.codigo}" th:text="${s.descripcion}" ></option>
-					</select>
-				</div>  
-          
-                <div class="form-group">
-					<label for="inputEstado">Estado</label>
-					<select id="estadoeditar" class="form-control" name="estado" th:field="*{estado}" >
-						<option value="1">Disponible</option>
-        				<option value="2">No Disponible</option>
-					</select>
-				</div>
-          
-		     <div class="modal-footer">
-				 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="submit" class="btn btn-success" id="guardarMarca">SI, Editar</button>
-		      </div>
-		      
-	    </form>
-		      
-          </div>  
-     
-      </div>
-    
-    </div>
-  </div>
-   
+<!--	<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+<!--		aria-hidden="true" data-bs-backdrop="static">-->
+<!--		<div class="modal-dialog" role="document">-->
+<!--			<div class="modal-content">-->
+<!--				<div class="modal-header">-->
+<!--					<h5 class="modal-title">Editar Producto</h5>-->
+<!--					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">-->
+<!--						<span aria-hidden="true">&times;</span>-->
+<!--					</button>-->
+<!--				</div>-->
+<!--				<div class="modal-body">-->
+<!--					<form th:action="@{/editarProducto}" th:object="${Producto}" method="post"-->
+<!--						enctype="multipart/form-data">-->
+<!--						<div class="form-group">-->
+<!--							<input type="hidden" class="form-control" id="codigoeditar" th:field="*{idproducto}">-->
+<!--						</div>-->
+<!--						<div class="form-group">-->
+<!--							<label for="nombre">Nombre de Productos</label>-->
+<!--							<input type="text" class="form-control" id="descripcioneditar" th:field="*{nomProducto}">-->
+<!--						</div>-->
+<!--						<div class="form-group">-->
+<!--							<label for="precio">Precio </label>-->
+<!--							<input type="text" class="form-control" id="precioeditar" th:field="*{precioPro}">-->
+<!--						</div>-->
+<!--						<div class="form-group">-->
+<!--							<input type="hidden" th:field="*{foto}" />-->
+<!--							<label for="foto">Foto </label>-->
+<!--							<input type="file" class="form-control" name="image" id="imagefile">-->
+<!--						</div>-->
+	
+<!--						<div class="form-group">-->
+<!--							<label for="inputmarca">Marca</label>-->
+<!--							<select id="marcaeditar" class="form-control" th:field="*{idMarca}">-->
+<!--								<option th:value="-1" th:text="Seleccione"></option>-->
+<!--								<option th:each="s: ${lstMarcaporEstado}" th:value="${s.codigo}" th:text="${s.descripcion}">-->
+<!--								</option>-->
+<!--							</select>-->
+<!--						</div>-->
+	
+<!--						<div class="form-group">-->
+<!--							<label for="inputEstado">Estado</label>-->
+<!--							<select id="estadoeditar" class="form-control" name="estado" th:field="*{estado}">-->
+<!--								<option value="1">Disponible</option>-->
+<!--								<option value="2">No Disponible</option>-->
+<!--							</select>-->
+<!--						</div>-->
+	
+<!--						<div class="modal-footer">-->
+<!--							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>-->
+<!--							<button type="submit" class="btn btn-success" id="guardarMarca">SI, Editar</button>-->
+<!--						</div>-->
+	
+<!--					</form>-->
+	
+<!--				</div>-->
+	
+<!--			</div>-->
+	
+<!--		</div>-->
+<!--	</div>-->
    <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -241,33 +242,33 @@
 			})
 		});
 	</script>
-<script>
-		$(document).ready(function(){
-			$('.editarbtn').on('click',function(){
-				$('#modalEditar').modal('show');
-				$tr = $(this).closest('tr');
-				var data = $tr.children("td").map(function(){
-					return $(this).text();
-				}).get();
-				console.log(data);
+<!--<script>-->
+<!--		$(document).ready(function(){-->
+<!--			$('.editarbtn').on('click',function(){-->
+<!--				$('#modalEditar').modal('show');-->
+<!--				$tr = $(this).closest('tr');-->
+<!--				var data = $tr.children("td").map(function(){-->
+<!--					return $(this).text();-->
+<!--				}).get();-->
+<!--				console.log(data);-->
 
-				$('#codigoeditar').val(data[0]);
-				$('#descripcioneditar').val(data[1]);
-				$('#precioeditar').val(data[2]);
+<!--				$('#codigoeditar').val(data[0]);-->
+<!--				$('#descripcioneditar').val(data[1]);-->
+<!--				$('#precioeditar').val(data[2]);-->
 			
 	
     
 				
 							
 
-			if (data[4] === "Disponible") {
-			  $('#estadoeditar').val("1");
-			} else if (data[4] === "No Disponible") {
-			  $('#estadoeditar').val("2");
-				}
-			});
-		});
-	</script>
+<!--			if (data[4] === "Disponible") {-->
+<!--			  $('#estadoeditar').val("1");-->
+<!--			} else if (data[4] === "No Disponible") {-->
+<!--			  $('#estadoeditar').val("2");-->
+<!--				}-->
+<!--			});-->
+<!--		});-->
+<!--	</script>-->
 
 	
 	  </body>

@@ -87,31 +87,40 @@
                         Marcas
                     </div>
                     <div id="contenedor_categoria" class="card-body">
-                        <form>
+                        <form id="filtroForm" action="/tienda" method="post">
                             <!-- Agregar una opción para "Todos" -->
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="flexRadioDefaultTodos" value="todos" name="marcaSeleccionada" checked>
-                                <label class="form-check-label" for="flexRadioDefaultTodos">Todos</label>
+                                <input class="form-check-input" type="radio"  value="todos" name="marcaSeleccionada"  >
+                                <label class="form-check-label" >Todos</label>
                             </div>
                             <!-- Iterar por las demás opciones de marca -->
                             <div th:each="marca : ${lstMarcaporEstado}">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:id="${'flexRadioDefault' + marca.codigo}" th:value="${marca.codigo}" name="marcaSeleccionada">
+                                    <input class="form-check-input" type="radio" th:id="${'flexRadioDefault' + marca.codigo}" th:value="${marca.codigo}" name="marcaSeleccionada"  th:checked="${marca.codigo == marcaSeleccionada}">
                                     <label class="form-check-label" th:for="${'flexRadioDefault' + marca.codigo}" th:text="${marca.descripcion}"></label>
                                 </div>
                             </div>
+                             <div class="card-footer">
+                        		<button id="btnaplicarfiltro" class="btn btn-dark btn-block" type="submit">
+                           			 <i class="fas fa-filter"></i> Aplicar Filtros
+                        		</button>
+                   			 </div>
                         </form>
                     </div>
-                    <div class="card-footer">
-                        <button id="btnaplicarfiltro" class="btn btn-dark btn-block">
-                            <i class="fas fa-filter"></i> Aplicar Filtros
-                        </button>
-                    </div>
+                   
                 </div>
             </div>
 
             <div class="col-sm-9">
-                <div id="contenedor_producto" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 justify-content-center g-4">
+				<main class="d-flex justify-content-center align-items-center">
+				<div id="gifCarga" style="display: block;" >
+				    <img th:src="@{/images/cargando_icon.gif}" alt="mi imagen" class="img-fluid">
+				</div>
+		
+				</main>
+			
+				
+                <div id="contenedor_producto" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 justify-content-center g-4" style="display: none;">
                     <div th:each="producto : ${lstProductoporEstado}" data-marca="${producto.marca}">
                         <div class="col">
                             <div class="card">
@@ -129,6 +138,8 @@
             </div>
         </div>
     </div>
+    
+   
 </section>
 
 
@@ -136,6 +147,9 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
+
+
+
 
 
 
@@ -151,12 +165,26 @@ $(document).ready(function() {
         $("#detalleProductoModal").modal("show");
     });
 });
+
 </script>
 
 
 
 
 
+
+<script>
+$(document).ready(function() {
+    $("#gifCarga").show(); // Mostrar el gif de carga al principio
+    $("#contenedor_producto").hide(); // Ocultar la lista de productos al principio
+
+    // Mostrar el gif de carga al principio y después de 2 segundos ocultarlo y mostrar la lista de productos
+    setTimeout(function () {
+        $("#gifCarga").hide(); // Ocultar el gif de carga después de 2 segundos
+        $("#contenedor_producto").show(); // Mostrar la lista de productos
+    }, 2000); // 2 segundos de retraso
+});
+</script>
 
 
 

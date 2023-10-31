@@ -43,11 +43,16 @@ public class MarcaController {
 	
 	
 	@PostMapping("/editar")
-	public String editar(@ModelAttribute Marca mar, RedirectAttributes attribute) {		
-		if(marca.save(mar) != null) {
-			attribute.addFlashAttribute("usuccess", "Felicidades se  actualizo con éxito!");
-		}
-				
+	public String editar(@ModelAttribute Marca mar, RedirectAttributes attribute) {	
+		
+		try {
+			  marca.save(mar);
+		        attribute.addFlashAttribute("success", "¡Felicidades! ¡Se Actualizo con éxito!");
+		} catch (Exception e) {
+			// TODO: handle exception
+	        attribute.addFlashAttribute("error", "La marca ya está registrada. Por favor, elija una descripción diferente.");
+
+		}	
 		return "redirect:/";
 	}
 	

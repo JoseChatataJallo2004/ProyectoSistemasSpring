@@ -26,9 +26,18 @@ public class MarcaController {
 	
 	@PostMapping("/grabarmarca")
 	public String grabarPag(@ModelAttribute Marca mar, RedirectAttributes attribute) {
-		if(marca.save(mar) != null) {
-			attribute.addFlashAttribute("success", "Felicidades se  registro con éxito!");
+		try {
+			  marca.save(mar);
+		        attribute.addFlashAttribute("success", "¡Felicidades! ¡Se registró con éxito!");
+		} catch (Exception e) {
+			// TODO: handle exception
+	        attribute.addFlashAttribute("error", "La marca ya está registrada. Por favor, elija una descripción diferente.");
+
 		}
+		
+		/*if(marca.save(mar) != null) {
+			attribute.addFlashAttribute("success", "Felicidades se  registro con éxito!");
+		}*/
 		return "redirect:/";
 	}
 	

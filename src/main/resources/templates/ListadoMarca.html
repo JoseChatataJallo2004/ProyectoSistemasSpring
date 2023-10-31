@@ -23,6 +23,12 @@
 				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 				
+				<div class="alert alert-danger alert-dismissible fade show" th:if="${error}!=null" role="alert">
+				  <label th:text="${error}"></label>
+				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				
+				
 				<div class="alert alert-warning alert-dismissible fade show" th:if="${usuccess}!=null" role="alert">
 				  <label th:text="${usuccess}"></label>
 				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

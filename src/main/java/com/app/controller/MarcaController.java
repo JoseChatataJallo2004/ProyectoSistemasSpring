@@ -17,7 +17,7 @@ public class MarcaController {
 	@Autowired
 	private IMarcaRepository marca;
 	
-	@GetMapping("/")
+	@GetMapping("/listarmarca")
 	public String listadoMarca(Model model) {
 		model.addAttribute("marca",new Marca());
 		model.addAttribute("lstMarca", marca.findAll());
@@ -38,7 +38,7 @@ public class MarcaController {
 		/*if(marca.save(mar) != null) {
 			attribute.addFlashAttribute("success", "Felicidades se  registro con éxito!");
 		}*/
-		return "redirect:/";
+		return "redirect:/listarmarca";
 	}
 	
 	
@@ -53,7 +53,7 @@ public class MarcaController {
 	        attribute.addFlashAttribute("error", "La marca ya está registrada. Por favor, elija una descripción diferente.");
 
 		}	
-		return "redirect:/";
+		return "redirect:/listarmarca";
 	}
 	
 	@PostMapping("/eliminar")
@@ -62,7 +62,7 @@ public class MarcaController {
 			marca.delete(marc);	
 			attribute.addFlashAttribute("dsuccess","Felicidades se  elimino con éxito!");	
 
-		return "redirect:/";
+		return "redirect:/listarmarca";
 	}
 	
 	

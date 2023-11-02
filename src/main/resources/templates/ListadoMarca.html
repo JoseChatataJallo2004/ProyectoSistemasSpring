@@ -19,7 +19,11 @@
 						
 		    	<h4>Listado de Marcas</h4>
 		    	
-		    	<button type="button" class="btn btn-primary  mb-2" id="agregarbtn" > Agregar Marca</button>
+		    	<button type="button" class="btn btn-primary  mb-2" id="agregarbtn" > 
+					    <i class="fas fa-plus"></i> Agregar Marca
+
+					
+				</button>
 		    	
 
 				
@@ -38,12 +42,17 @@
 		    				<td class="codigo-data"  th:text="${m.codigo}"></td>
 		    				<td th:text="${m.descripcion}"></td>
 		    				<td th:text="${m.estado ==1 ? 'Disponible' : 'No Disponible'}"></td>
-		    				<td>
-								<button class="btn btn-warning editarbtn"> Actualizar</button>
-		    				</td>
-		    				<td>
-								<button type="button" class="btn btn-danger deletebtn"> Eliminar</button>
-		    				</td>
+							<td>
+							    <button class="btn btn-warning editarbtn">
+							        <i class="fas fa-edit"></i> Actualizar
+							    </button>
+							</td>
+							<td>
+							    <button type="button" class="btn btn-danger deletebtn">
+							        <i class="fas fa-trash-alt"></i> Eliminar
+							    </button>
+							</td>
+
 		    			</tr>
 		    		</tbody>
 		    	</table>    
@@ -78,8 +87,12 @@
 				</div>
           
 		     <div class="modal-footer">
-				 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="submit" class="btn btn-success" id="guardarMarca">SI, Guardar</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					    <i class="fas fa-times"></i> Cancelar
+					</button>
+					<button type="submit" class="btn btn-success" id="guardarMarca">
+					    <i class="fas fa-check"></i> SI, Guardar
+					</button>
 		      </div>
    
         </form>
@@ -117,8 +130,12 @@
 				</div>
           
 		     <div class="modal-footer">
-				 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="submit" class="btn btn-success" id="guardarMarca">SI, Editar</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					    <i class="fas fa-times"></i> Cancelar
+					</button>
+					<button type="submit" class="btn btn-success" id="guardarMarca">
+					    <i class="fas fa-check"></i> SI, Guardar
+					</button>
 		      </div>
    
         </form>
@@ -151,8 +168,12 @@
       
           
 		     <div class="modal-footer">
-				 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="submit" class="btn btn-danger" >SI, Eliminar</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					    <i class="fas fa-times"></i> Cancelar
+					</button>
+					<button type="submit" class="btn btn-success" id="guardarMarca">
+					    <i class="fas fa-check"></i> SI, Guardar
+					</button>
 		      </div>
    
         </form>

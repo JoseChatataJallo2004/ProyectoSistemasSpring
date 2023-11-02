@@ -21,26 +21,7 @@
 		    	
 		    	<button type="button" class="btn btn-primary  mb-2" id="agregarbtn" > Agregar Marca</button>
 		    	
-				<div class="alert alert-success alert-dismissible fade show" th:if="${success}!=null" role="alert">
-				  <label th:text="${success}"></label>
-				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-				
-				<div class="alert alert-danger alert-dismissible fade show" th:if="${error}!=null" role="alert">
-				  <label th:text="${error}"></label>
-				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-				
-				
-				<div class="alert alert-warning alert-dismissible fade show" th:if="${usuccess}!=null" role="alert">
-				  <label th:text="${usuccess}"></label>
-				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-				
-				<div class="alert alert-danger alert-dismissible fade show" th:if="${dsuccess}!=null" role="alert">
-				  <label th:text="${dsuccess}"></label>
-				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
+
 				
 		    	<table class="table table-hover" id="myTable">
 		    		<thead>
@@ -256,6 +237,43 @@
 		});
 	</script>
 	
+		
+		<!-- Agrega SweetAlert al final de tu página HTML, después de cargar Bootstrap y otros scripts -->
+				<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+				
+			<script th:inline="javascript">
+			    /* Comprueba si hay un mensaje de error o éxito en los atributos de redirección */
+			    var uniquemarca = /*[[@{${uniquemarca}}]]*/ null;
+			    var rsuccess = /*[[@{${rsuccess}}]]*/ null;
+			    var asuccess = /*[[@{${asuccess}}]]*/ null;
+			    var esuccess = /*[[@{${esuccess}}]]*/ null;
+			
+			    /* Función para mostrar mensajes de error o éxito */
+			    function showSweetAlert(icon, title, message, color) {
+			        Swal.fire({
+			            icon: icon,
+			            title: title,
+			            text: message,
+			            confirmButtonColor: color
+			        });
+			    }
+			
+			    /* Verifica si hay un mensaje de error y muestra SweetAlert en caso de existir */
+			    document.addEventListener('DOMContentLoaded', function () {
+			        if (uniquemarca) {
+			            showSweetAlert('error', 'Error', uniquemarca, '#dc3545');
+			        } else if (rsuccess) {
+			            showSweetAlert('success', 'Éxito', rsuccess, '#28a745');
+			        } else if (asuccess) {
+			            showSweetAlert('success', 'Éxito', asuccess, '#28a745');
+			        } else if (esuccess) {
+			            showSweetAlert('success', 'Éxito', esuccess, '#28a745');
+			        }
+			    });
+			</script>
+
+		
+		
 		
 
 	  </body>

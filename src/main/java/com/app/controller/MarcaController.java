@@ -28,16 +28,14 @@ public class MarcaController {
 	public String grabarPag(@ModelAttribute Marca mar, RedirectAttributes attribute) {
 		try {
 			  marca.save(mar);
-		        attribute.addFlashAttribute("success", "¡Felicidades! ¡Se registró con éxito!");
+		        attribute.addFlashAttribute("rsuccess", "¡Felicidades! ¡Se registró con éxito!");
 		} catch (Exception e) {
 			// TODO: handle exception
-	        attribute.addFlashAttribute("error", "La marca ya está registrada. Por favor, elija una descripción diferente.");
+	        attribute.addFlashAttribute("uniquemarca", "La marca ya está registrada. Por favor, elija una descripción diferente.");
 
 		}
 		
-		/*if(marca.save(mar) != null) {
-			attribute.addFlashAttribute("success", "Felicidades se  registro con éxito!");
-		}*/
+		
 		return "redirect:/listarmarca";
 	}
 	
@@ -47,10 +45,10 @@ public class MarcaController {
 		
 		try {
 			  marca.save(mar);
-		        attribute.addFlashAttribute("success", "¡Felicidades! ¡Se Actualizo con éxito!");
+		        attribute.addFlashAttribute("asuccess", "¡Felicidades! ¡Se Actualizo con éxito!");
 		} catch (Exception e) {
 			// TODO: handle exception
-	        attribute.addFlashAttribute("error", "La marca ya está registrada. Por favor, elija una descripción diferente.");
+	        attribute.addFlashAttribute("uniquemarca", "La marca ya está registrada. Por favor, elija una descripción diferente.");
 
 		}	
 		return "redirect:/listarmarca";
@@ -60,7 +58,7 @@ public class MarcaController {
 	public String eliminar(@ModelAttribute Marca mar, RedirectAttributes attribute) {		
 		Marca marc =marca.findByCodigo(mar.getCodigo());	
 			marca.delete(marc);	
-			attribute.addFlashAttribute("dsuccess","Felicidades se  elimino con éxito!");	
+			attribute.addFlashAttribute("esuccess","Felicidades se  elimino con éxito!");	
 
 		return "redirect:/listarmarca";
 	}

@@ -1,0 +1,39 @@
+create database db_proyecto_5to_web;
+
+use db_proyecto_5to_web;
+
+create table marca (
+idmarca int auto_increment primary key ,
+descripcion varchar(100),
+estado int DEFAULT 1 check (estado IN (1,2))
+);
+
+insert into marca (descripcion) values  ("Puma");
+
+select * from marca;
+
+create table productos(
+idpro int auto_increment primary key,
+nompro varchar(50) ,
+precio decimal(8,2),
+idmarca int,
+foto mediumblob,
+estado int DEFAULT 1 check (estado IN (1,2))
+);
+
+select * from productos;
+
+CREATE TABLE usuario (
+    idusu INT AUTO_INCREMENT PRIMARY KEY,
+    nombreusu VARCHAR(50),
+    gmailusu VARCHAR(100),
+    usuariousu VARCHAR(50),
+    claveusu VARCHAR(50)
+);
+
+INSERT INTO usuario (nombreusu, gmailusu, usuariousu, claveusu) VALUES
+('Jose Chatata', 'jose@example.com', 'i20212095', 'clave19'),
+('Adriana Cussinovich', 'adriana@example.com', 'u20212095', 'clave18');
+
+
+select * from usuario;

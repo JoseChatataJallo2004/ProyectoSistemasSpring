@@ -94,7 +94,7 @@
 						<i class="fas fa-shopping-bag"></i> Realizar Pedido</button>
 
 <!-- Agregar este código justo después del botón "Realizar Pedido" -->
-<div class="modal fade" id="confirmarPedidoModal" tabindex="-1" aria-labelledby="confirmarPedidoModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmarPedidoModal" tabindex="-1" aria-labelledby="confirmarPedidoModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,12 +102,32 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ¿Estás seguro de que deseas realizar el pedido?
+				<form id="detallesPersonalesForm">
+                    <div class="mb-3">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dni">DNI</label>
+                        <input type="text" class="form-control" id="dni">
+                    </div>
+                   <p>¿Estás seguro de que deseas realizar el pedido?</p>
+
+                     <div class="modal-footer">
+			                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+			                <button type="button" class="btn btn-primary" id="confirmarPedido">Confirmar Pedido</button>
+			         </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="confirmarPedido">Confirmar Pedido</button>
-            </div>
+           
         </div>
     </div>
 </div>
@@ -123,15 +143,23 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     document.getElementById('realizarPedido').addEventListener('click', function() {
         $('#confirmarPedidoModal').modal('show'); // Mostrar el modal al hacer clic en "Realizar Pedido"
     });
 
-    document.getElementById('confirmarPedido').addEventListener('click', function() {
+	 document.getElementById('confirmarPedido').addEventListener('click', function() {
+        var nombre = document.getElementById('nombre').value;
+        var telefono = document.getElementById('telefono').value;
+        var email = document.getElementById('email').value;
+        var dni = document.getElementById('dni').value;
+
         var productos = document.querySelectorAll("table.table tbody tr");
         var productosSeleccionados = [];
-
+        
+        
         productos.forEach(function(producto) {
             var idProducto = producto.querySelector("td:nth-child(1)").innerText;
             var descripcion = producto.querySelector("textarea").value;
@@ -141,13 +169,14 @@
             }
         });
 
+        
+  		console.log("Detalles Personales:", { nombre, telefono, email, dni });
         console.log("Productos Seleccionados:", productosSeleccionados);
-        // Aquí puedes realizar más acciones con los datos seleccionados, como enviarlos a través de una solicitud AJAX al servidor
-
-        // Una vez completado el pedido o las acciones requeridas, cierra el modal
-        $('#confirmarPedidoModal').modal('hide');
-    });
+ 
+ 	});
 </script>
+
+
 
     
 </body>

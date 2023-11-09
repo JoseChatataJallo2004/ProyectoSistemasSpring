@@ -1,20 +1,16 @@
 <!doctype html>
 <html lang="es" xmlns:th="https://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  
-  <!--PARA EL QUERY DE LA TABLA -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
-
-  
-  </head>
+        <head th:replace="Header :: head"> 
+	  
+  </head> 
+   
   <body>
-	  <br/>
+	  	 <!----> 
+     <nav th:insert="ListadoMarca :: nav">
+	     
+		</nav>
+	  
+
 	   <br/>
 	    <br/>
     <div class="container">
@@ -49,7 +45,8 @@
 					<!--	<button class="btn btn-warning editarbtn"> Actualizar</button>-->
     				<td>
 
-						<button type="button" class="btn btn-danger deletebtn"> Eliminar</button>
+						<button type="button" class="btn btn-danger deletebtn">
+							<i class="fas fa-trash-alt"></i>  Eliminar</button>
     				</td>
     			</tr>
     		</tbody>
@@ -242,6 +239,42 @@
 			})
 		});
 	</script>
+	
+	
+	<!-- Agrega SweetAlert al final de tu página HTML, después de cargar Bootstrap y otros scripts -->
+				<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+				
+			<script th:inline="javascript">
+			    /* Comprueba si hay un mensaje de error o éxito en los atributos de redirección */
+			    var uniquemarca = /*[[@{${uniquemarca}}]]*/ null;
+			    var rsuccess = /*[[@{${rsuccess}}]]*/ null;
+			    var asuccess = /*[[@{${asuccess}}]]*/ null;
+			    var esuccess = /*[[@{${esuccess}}]]*/ null;
+			
+			    /* Función para mostrar mensajes de error o éxito */
+			    function showSweetAlert(icon, title, message, color) {
+			        Swal.fire({
+			            icon: icon,
+			            title: title,
+			            text: message,
+			            confirmButtonColor: color
+			        });
+			    }
+			
+			    /* Verifica si hay un mensaje de error y muestra SweetAlert en caso de existir */
+			    document.addEventListener('DOMContentLoaded', function () {
+			        if (uniquemarca) {
+			            showSweetAlert('error', 'Error', uniquemarca, '#dc3545');
+			        } else if (rsuccess) {
+			            showSweetAlert('success', 'Éxito', rsuccess, '#28a745');
+			        } else if (asuccess) {
+			            showSweetAlert('success', 'Éxito', asuccess, '#28a745');
+			        } else if (esuccess) {
+			            showSweetAlert('success', 'Éxito', esuccess, '#28a745');
+			        }
+			    });
+			</script>
+
 <!--<script>-->
 <!--		$(document).ready(function(){-->
 <!--			$('.editarbtn').on('click',function(){-->

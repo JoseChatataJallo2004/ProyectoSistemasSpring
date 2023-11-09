@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.modelos.Producto;
 import com.app.repository.IMarcaRepository;
@@ -37,7 +38,7 @@ public class ProductoController {
 	}
 
 	@PostMapping("/grabarProducto")
-	public String grabarPag(@ModelAttribute Producto mar, @RequestParam("image") MultipartFile multi)
+	public String grabarPag(@ModelAttribute Producto mar, @RequestParam("image") MultipartFile multi, RedirectAttributes attribute)
 			throws IOException {
 
 		String fileName = StringUtils.cleanPath(multi.getOriginalFilename());
@@ -49,7 +50,15 @@ public class ProductoController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		produc.save(mar);
+		
+		try {
+			produc.save(mar);
+		        attribute.addFlashAttribute("rsuccess", "¡Felicidades! ¡Se registró con éxito!");
+		} catch (Exception e) {
+			// TODO: handle exception
+	        attribute.addFlashAttribute("uniquemarca", "El producto ya está registrada. Por favor, elija una descripción diferente.");
+
+		}
 		return "redirect:/listarProducto";
 	}
 
@@ -70,9 +79,10 @@ public class ProductoController {
 
 	
 	@PostMapping("/eliminarProducto")
-	public String eliminar(@ModelAttribute Producto mar) {		
+	public String eliminar(@ModelAttribute Producto mar,RedirectAttributes attribute) {		
 		Producto marc =produc.findByIdproducto(mar.getIdproducto());	
 			produc.delete(marc);	
+			attribute.addFlashAttribute("esuccess","Felicidades se  elimino con éxito!");	
 		return "redirect:/listarProducto";
 	}
 	

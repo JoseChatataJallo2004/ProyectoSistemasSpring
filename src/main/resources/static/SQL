@@ -37,3 +37,16 @@ INSERT INTO usuario (nombreusu, gmailusu, usuariousu, claveusu) VALUES
 
 
 select * from usuario;
+
+
+
+CREATE TABLE Pedidos (
+    idpedido INT AUTO_INCREMENT PRIMARY KEY,
+     nombre VARCHAR(50),
+      telefono VARCHAR(15),
+    email VARCHAR(100),
+    dni VARCHAR(20),  
+    fechapedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) AUTO_INCREMENT = 10000001;
+
+

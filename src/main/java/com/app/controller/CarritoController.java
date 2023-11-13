@@ -2,6 +2,7 @@ package com.app.controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.app.modelos.Pedido;
 import com.app.modelos.Producto;
+import com.app.repository.IPedidoRepository;
 import com.app.repository.IProductoRepository;
 
 @Controller
@@ -21,6 +26,9 @@ public class CarritoController {
 
 	@Autowired
 	private IProductoRepository proce;
+	
+	@Autowired IPedidoRepository ipedirepo;
+	
 	
 	@GetMapping("/agregarAlCarrito/{idProducto}")
 	public String agregarAlCarrito(@PathVariable("idProducto") int idProducto, HttpSession session,RedirectAttributes attribute) {
@@ -78,6 +86,33 @@ public class CarritoController {
         }
         return "redirect:/carrito"; // Redirige a la página del carrito después de eliminar el producto
     }
+    
+	@PostMapping("/grabarpedido")
+	public String grabarPag(@ModelAttribute Pedido pec, RedirectAttributes attribute,HttpSession session) {
+		try {
+			//asignar fecha actual
+			pec.setFechapedido(new Date());
+			
+			ipedirepo.save(pec);
+	        attribute.addFlashAttribute("sweetAlert", "success");
+	        attribute.addFlashAttribute("rsuccess", "¡Felicidades! ¡Su pedido fue realizado  con éxito!");
+
+		        // Limpiar carrito en la sesión después de guardar el pedido exitosamente
+		        session.removeAttribute("carrito");
+		        return "redirect:/tienda"; // Redirige a la página de la tienda después de guardar el pedido
+
+		} catch (Exception e) {
+			// TODO: handle exception
+	        attribute.addFlashAttribute("sweetAlert", "error");
+	        attribute.addFlashAttribute("uniquemarca", "Hubo un error");
+
+			return "redirect:/carrito";
+
+		}
+		
+		
+	}
+	
     
 }
 

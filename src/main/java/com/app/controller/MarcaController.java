@@ -1,21 +1,45 @@
 package com.app.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.modelos.Marca;
 import com.app.repository.IMarcaRepository;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
+
 
 @Controller
 public class MarcaController {
 
 	@Autowired
 	private IMarcaRepository marca;
+	
+	@Autowired
+	private ResourceLoader resourceLoader;
+	
+	@Autowired
+	private DataSource dataSource;
+	
 	
 	@GetMapping("/listarmarca")
 	public String listadoMarca(Model model) {
@@ -62,9 +86,21 @@ public class MarcaController {
 
 		return "redirect:/listarmarca";
 	}
-	
-	
-	
-	
-	
+	@PostMapping(value="/reporte", params="exportar")
+	public void exportar(HttpServletResponse response) throws JRException, SQLException {
+		String nombreReporte = "reporte_productos";
+		response.setHeader("Content-Disposition", "inline; filename="+nombreReporte+".pdf");
+		response.setContentType("application/pdf");
+		try {
+			String ru = resourceLoader.getResource("classpath:reportes/ReporteProducto.jasper").getURI().getPath();
+			HashMap<String, Object>parametros = new HashMap<>();
+			JasperPrint jasperPrint = JasperFillManager.fillReport(ru, parametros, dataSource.getConnection()); 
+			OutputStream outStream = response.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

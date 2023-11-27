@@ -1,9 +1,16 @@
 package com.app.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.Base64;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -19,6 +26,11 @@ import com.app.modelos.Producto;
 import com.app.repository.IMarcaRepository;
 import com.app.repository.IProductoRepository;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
 @Controller
 public class ProductoController {
 
@@ -28,6 +40,12 @@ public class ProductoController {
 	@Autowired
 	private IMarcaRepository marca;
 
+	@Autowired
+	private ResourceLoader resourceLoader;
+	
+	@Autowired
+	private DataSource dataSource;
+	
 	@GetMapping("/listarProducto")
 	public String listadoProducto(Model model) {
 		model.addAttribute("Producto", new Producto());
@@ -86,6 +104,24 @@ public class ProductoController {
 		return "redirect:/listarProducto";
 	}
 	
+	/*@PostMapping(value="/reporte", params="exportar")
+	public void exportar(HttpServletResponse response) throws JRException, SQLException {
+		String nombreReporte = "reporte_productos";
+		response.setHeader("Content-Disposition", "inline; filename="+nombreReporte+".pdf");
+		response.setContentType("application/pdf");
+		try {
+			String ru = resourceLoader.getResource("classpath:reportes/ReporteMarca.jasper").getURI().getPath();
+			HashMap<String, Object>parametros = new HashMap<>();
+			JasperPrint jasperPrint = JasperFillManager.fillReport(ru, parametros, dataSource.getConnection()); 
+			OutputStream outStream = response.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	*/
 	
 }
 
